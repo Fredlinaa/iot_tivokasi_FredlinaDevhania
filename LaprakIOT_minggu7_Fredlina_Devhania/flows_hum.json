@@ -1,0 +1,232 @@
+[
+    {
+        "id": "9ee437252d2b0c81",
+        "type": "tab",
+        "label": "test",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f1172be69061b358",
+        "type": "mqtt in",
+        "z": "9ee437252d2b0c81",
+        "name": "MQTT data",
+        "topic": "IOT/Test1/hum",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "fd4cbcbcd29913ab",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 260,
+        "wires": [
+            [
+                "4db5b2a12e92f52f",
+                "3fbf3dbcbd4b18e1",
+                "9fc136140df8a5b4",
+                "3923030809a0bd4a"
+            ]
+        ]
+    },
+    {
+        "id": "0b9c798ef7faf830",
+        "type": "inject",
+        "z": "9ee437252d2b0c81",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 120,
+        "wires": [
+            [
+                "4db5b2a12e92f52f"
+            ]
+        ]
+    },
+    {
+        "id": "4db5b2a12e92f52f",
+        "type": "ui_text",
+        "z": "9ee437252d2b0c81",
+        "group": "66596c22c53900d8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Humadity",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 480,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "3fbf3dbcbd4b18e1",
+        "type": "ui_gauge",
+        "z": "9ee437252d2b0c81",
+        "name": "",
+        "group": "66596c22c53900d8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "wave",
+        "title": "Hum",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 470,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "9fc136140df8a5b4",
+        "type": "debug",
+        "z": "9ee437252d2b0c81",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "3923030809a0bd4a",
+        "type": "function",
+        "z": "9ee437252d2b0c81",
+        "name": "function 2",
+        "func": "var xx = msg.payload;\nvar Newobject = {};\nNewobject = {\n    \"hum\": msg.payload.toString()\n}\nmsg.payload = Newobject;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 400,
+        "wires": [
+            [
+                "95ab26848d5e0e2e"
+            ]
+        ]
+    },
+    {
+        "id": "95ab26848d5e0e2e",
+        "type": "influxdb out",
+        "z": "9ee437252d2b0c81",
+        "influxdb": "2fe9efe09dfa8dfd",
+        "name": "InfluxDB",
+        "measurement": "Temp",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "s",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "NodeRed",
+        "x": 680,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "fd4cbcbcd29913ab",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.emqx.io",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "66596c22c53900d8",
+        "type": "ui_group",
+        "name": "Home",
+        "tab": "33e1fa2b35d5f28e",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2fe9efe09dfa8dfd",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": 8086,
+        "protocol": "http",
+        "database": "database",
+        "name": "InfluxDB",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "https://us-east-1-1.aws.cloud2.influxdata.com/",
+        "timeout": 10,
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "33e1fa2b35d5f28e",
+        "type": "ui_tab",
+        "name": "IOT",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

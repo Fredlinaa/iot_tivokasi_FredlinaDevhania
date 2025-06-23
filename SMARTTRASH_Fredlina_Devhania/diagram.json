@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "author": "Uri Shaked",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-breadboard-half", "id": "bb1", "top": -31.8, "left": -323.6, "attrs": {} },
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": -129.7, "left": 43, "attrs": {} },
+    { "type": "wokwi-led", "id": "led1", "top": -51.6, "left": -409, "attrs": { "color": "red" } },
+    { "type": "wokwi-servo", "id": "servo1", "top": 180.4, "left": -76.8, "attrs": {} },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "ultrasonic1",
+      "top": -209.7,
+      "left": -128.9,
+      "attrs": { "distance": "14" }
+    },
+    { "type": "wokwi-ir-receiver", "id": "ir1", "top": -174.15, "left": -260.98, "attrs": {} },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 61.55,
+      "left": -393.6,
+      "attrs": { "value": "1000" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX0", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX0", "$serialMonitor:TX", "", [] ],
+    [ "esp:3V3", "bb1:tp.25", "red", [ "v48", "h-125.1", "v-124.8" ] ],
+    [ "esp:GND.2", "bb1:tn.25", "black", [ "h-19.2", "v-67.3" ] ],
+    [ "ultrasonic1:VCC", "bb1:tp.21", "red", [ "v0" ] ],
+    [ "ultrasonic1:GND", "bb1:tn.21", "black", [ "v67.2", "h-30", "v38.4" ] ],
+    [ "ultrasonic1:TRIG", "bb1:28t.a", "yellow", [ "v0" ] ],
+    [ "bb1:28t.e", "esp:D5", "yellow", [ "v0", "h48", "v-57.6" ] ],
+    [ "ultrasonic1:ECHO", "bb1:27t.a", "blue", [ "v115.2", "h-10.4" ] ],
+    [ "bb1:27t.e", "esp:D18", "blue", [ "v9.6", "h48", "v-96" ] ],
+    [ "ir1:VCC", "bb1:tp.18", "red", [ "v38.4", "h124.8" ] ],
+    [ "ir1:GND", "bb1:tn.18", "black", [ "v48", "h134.4" ] ],
+    [ "ir1:DAT", "bb1:24t.a", "purple", [ "v96", "h144" ] ],
+    [ "bb1:24t.e", "esp:D19", "purple", [ "v0" ] ],
+    [ "led1:A", "bb1:14t.a", "red", [ "v0" ] ],
+    [ "bb1:14t.b", "r1:1", "cyan", [ "v0", "h-249.6" ] ],
+    [ "r1:2", "esp:D22", "cyan", [ "v0" ] ],
+    [ "led1:C", "bb1:13t.a", "green", [ "v0" ] ],
+    [ "bb1:13t.e", "bb1:tn.11", "green", [ "v0" ] ],
+    [ "esp:VIN", "bb1:bp.25", "red", [ "h-19.2", "v124.8", "h-48" ] ],
+    [ "esp:GND.1", "bb1:bn.25", "black", [ "h28.5", "v47.9" ] ],
+    [ "servo1:V+", "bb1:bp.17", "red", [ "h0" ] ],
+    [ "servo1:GND", "bb1:bn.18", "black", [ "h0" ] ],
+    [ "servo1:PWM", "bb1:30b.f", "green", [ "h0" ] ],
+    [ "bb1:30b.j", "esp:D21", "green", [ "v0", "h211.2", "v-192", "h-28.8" ] ]
+  ],
+  "serialMonitor": { "display": "terminal" },
+  "dependencies": {}
+}
